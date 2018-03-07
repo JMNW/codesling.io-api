@@ -1,0 +1,16 @@
+language: node_js
+node_js: node
+services: postgresql
+install:
+- createuser root
+- createdb codesling
+- psql codesling
+- yarn
+- yarn buildEnv
+- yarn setup:rest-server
+- yarn setup:socket-server
+- yarn setup:services/coderunner-service
+- yarn db:setup:rest-server
+
+script:
+- yarn start # starts all back-end servers
