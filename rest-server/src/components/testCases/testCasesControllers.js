@@ -1,5 +1,6 @@
 import {
-  addTestCaseQuery
+  addTestCaseQuery,
+  getTest
 } from './testCasesQuery';
 import {
   success,
@@ -8,7 +9,10 @@ import {
 
 export const addTestCaseController = async (req, res) => {
   try {
-    const data = await addTestCaseQuery(req.body);
+    const data = await addTestCaseQuery(req.body)
+    // const { content:testContent } = await getTest(req.body);
+    console.log(req.body, 'up in ADD TEST CASE CONTROLLER');
+    // data.testContent = testContent;
     success('addTestCaseController - successfully added test case ', data);
     return res.status(200).send(data);
   } catch (err) {

@@ -6,6 +6,7 @@
 export const serverInitialState = ({ client, room }, payload) => {
   if (!room.get('challenge')) {
     room.set('challenge', payload);
+    console.log(client, room, payload, "Up in the server")
     client.emit('server.initialState', {
       id: client.id,
       text: room.get('text'),
