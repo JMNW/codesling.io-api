@@ -8,11 +8,11 @@ export const globalQueryHelper = async (payload, query, name) => {
   try {
     const queryString = query(payload);
     const data = await db.queryAsync(queryString);
-    success(`${name} - successfully retrived data ${JSON.stringify(data)}`);
+    success(`${name} - successfully retrived data ${JSON.stringify(data.rows)}`);
     return data;
   } catch (err) {
     error(`${name} - error= ', err`);
-    throw new Error(err);
+    // throw new Error(err);
   }
 };
 
@@ -26,12 +26,12 @@ export const globalController = (query, name) => {
       payload = req.params;
     }
     try {
-      const { rows } = query(payload, url);
+      const { rows } = await query(payload, url);
       success(`${name} - sucessfully retrieved data ${JSON.stringify(rows)}`);
       return res.status(200).send(rows);
     } catch (err) {
       error(`${name} - error= ${err}`);
-      throw new Error(err);
+      // throw new Error(err);
     }
   }
 };

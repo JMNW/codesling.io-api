@@ -11,7 +11,8 @@ import {
 
 export const historyQueryHelper = async (payload) => {
   try {
-    const queryString = fetchAllHistoryHelper(payload);
+    //ADDED AWAIT HERE
+    const queryString = await fetchAllHistoryHelper(payload);
     const data = await db.queryAsync(queryString);
     success('historyQueryHelper - successfully retrieved data ', data);
     return data;
@@ -24,7 +25,8 @@ export const historyQueryHelper = async (payload) => {
 export const historyQuery = async (payload, url) => {
   if (url === '/addHistory') {
     try {
-      const queryString = addHistoryHelper(payload);
+      //ADDED AWAIT HERE 
+      const queryString = await addHistoryHelper(payload);
       const data = await db.queryAsync(queryString);
       success('historyQueryHelper - successfully retrieved data ', data);
       return data;
