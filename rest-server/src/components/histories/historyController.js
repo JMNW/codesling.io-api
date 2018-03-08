@@ -30,7 +30,7 @@ import { fetchUserQuery } from '../users/userQueries';
 export const fetchHistoryController = async (req, res) => {
   try {
     const { rows } = await historyQueryHelper(req.params);
-    await rows.forEach(async (row) => {
+    rows.forEach(async (row) => {
       const user = await fetchUserQuery(row.receiver_id);
       row.receiver = user;
     });
