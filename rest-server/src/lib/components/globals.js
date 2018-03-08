@@ -12,7 +12,7 @@ export const globalQueryHelper = async (payload, query, name) => {
     return data;
   } catch (err) {
     error(`${name} - error= ', err`);
-    throw new Error(err);
+    // throw new Error(err);  -- No throw error
   }
 };
 
@@ -31,7 +31,7 @@ export const globalController = (query, name) => {
       return res.status(200).send(rows);
     } catch (err) {
       error(`${name} - error= ${err}`);
-      throw new Error(err);
+      // throw new Error(err) --No throw error
     }
   }
 };
