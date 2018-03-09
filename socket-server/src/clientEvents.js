@@ -67,6 +67,7 @@ const clientRun = async ({ io, room }, payload) => {
 
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const { data } = await axios.post(`${url}/submit-code`, { code: text});
     let stdout = data;
     const testdata= await axios.post(`${url}/submit-test`, {test: test});
@@ -85,6 +86,8 @@ const clientRun = async ({ io, room }, payload) => {
     serverRun({ io, room }, { stdout, email });
     
 =======
+=======
+>>>>>>> 092cb3df7df0aad6405295e8a1321b90b2efbf03
     const { data } = await axios.post(`${url}/submit-code`, { code: text, test: test});
     const stdout = data;
     const testData = await axios.post(`${url}/submit-test`, {test: test});
@@ -93,7 +96,10 @@ const clientRun = async ({ io, room }, payload) => {
 
     serverRun({ io, room }, { stdout, email });
 
+<<<<<<< HEAD
 >>>>>>> still working dat thang
+=======
+>>>>>>> 092cb3df7df0aad6405295e8a1321b90b2efbf03
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -105,6 +111,7 @@ const clientMessage = async ({ io, room }, payload) => {
   const url = process.env.REST_SERVER_URL;
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     //changed this URL *****
     // const { data } = await axios.post(`${url}/messages/`, payload);
@@ -115,6 +122,10 @@ const clientMessage = async ({ io, room }, payload) => {
     const { data } = await axios.post(`${url}/messages/`, payload);
 
 >>>>>>> still working dat thang
+=======
+    const { data } = await axios.post(`${url}/messages/`, payload);
+
+>>>>>>> 092cb3df7df0aad6405295e8a1321b90b2efbf03
     serverMessage({ io, room }, data);
   } catch (e) {
     success('error saving message to the database. e = ', e);
