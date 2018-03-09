@@ -9,6 +9,19 @@ import {
   serverMessage,
 } from './serverEvents';
 
+
+
+
+const testHelper = (text, ...expectedValAndVariables) => {
+	return `const assertEquals = function(callback, expected, ...args) {
+	if (callback(...args) === expected) {
+		return 'it works';
+	} else {
+		return 'it doesnt work';
+	}
+};
+assertEquals(${text}, ${expectedValAndVariables})`;
+};
 /**
  *
  *  Client emissions (server listeners)
@@ -43,23 +56,24 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  // console.log({io, room}, payload, "in CLIENT RUN")
-  const { text, email, test } = payload;
+  console.log({io, room}, payload.test, "in CLIENT RUN")
+
+
+  const test = testHelper(payload.text, '1,3,2');
+  const { text, email} = payload;
+
   const url = process.env.CODERUNNER_SERVICE_URL;
-  console.log('this is the client run payload:', payload)
+  console.log('<HERE>Is <MY>TEST</MY></HERE>', test)
 
   try {
     const { data } = await axios.post(`${url}/submit-code`, { code: text, test: test});
     const stdout = data;
-    const testData= await axios.post(`${url}/submit-test`, {test: test});
-    const testout = JSON.parse(testData.config.data).test
-    
-    console.log('this is stdout', stdout)
-    console.log('this is testoutput',testout)
-    
-    if(stdout === testout){
+    const testData = await axios.post(`${url}/submit-test`, {test: test});
+    console.log(testData, 'this is the test data')
+
+
     serverRun({ io, room }, { stdout, email });
-    }
+
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -71,7 +85,7 @@ const clientMessage = async ({ io, room }, payload) => {
   const url = process.env.REST_SERVER_URL;
   try {
     const { data } = await axios.post(`${url}/messages/`, payload);
-      // console.log({io, room}, data, "in CLIENT Message")
+
     serverMessage({ io, room }, data);
   } catch (e) {
     success('error saving message to the database. e = ', e);
