@@ -7,7 +7,7 @@ const router = express.Router();
 router.route('/addFriend')
   .post(friendController);
 
-router.route('/fetchAllFriends/:user_id/')
+router.route('/fetchAllFriends/:user_id')
   .get(friendController);
 
 router.route('/deleteFriend/:user_id/:friend_id')

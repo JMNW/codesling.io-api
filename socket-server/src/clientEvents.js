@@ -22,7 +22,7 @@ import {
  */
 const clientReady = ({ io, client, room }, payload) => {
   success('client ready heard');
-  // console.log({io, client, room}, payload, "in CLIENT READY")
+  // console.log({io, client, room}, payload, "in CLIENT READY");
   serverInitialState({ io, client, room }, payload);
 };
 
@@ -76,7 +76,11 @@ const clientMessage = async ({ io, room }, payload) => {
   success('client message heard');
   const url = process.env.REST_SERVER_URL;
   try {
-    const { data } = await axios.post(`${url}/messages/`, payload);
+
+    //changed this URL *****
+    // const { data } = await axios.post(`${url}/messages/`, payload);
+
+    const { data } = await axios.post(`http://localhost:3396/api/messages`, payload);
       // console.log({io, room}, data, "in CLIENT Message")
     serverMessage({ io, room }, data);
   } catch (e) {
