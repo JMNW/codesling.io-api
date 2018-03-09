@@ -36,4 +36,25 @@ app.post('/submit-code', (req, res) => {
   });
 });
 
+app.post('/submit-test', (req, res) => {
+  tmp.file({ postfix: '.js' }, (errCreatingTmpFile, path) => {
+    writeFile(path, req.body.test, (errWritingFile) => {
+      if (errWritingFile) {
+        res.send(errWritingFile);
+      } else {
+        execFile('node', [path], (errExecutingFile, stdout, stderr) => {
+          if (errExecutingFile) {
+            let stderrFormatted = stderr.split('\n');
+            stderrFormatted.shift();
+            stderrFormatted = stderrFormatted.join('\n');
+            res.send(stderrFormatted);
+          } else {
+            res.write(JSON.stringify(stdout));
+            res.send();
+          }
+        });
+      }
+    });
+  });
+});
 app.listen(PORT, success(`coderunner-service is listening on port ${PORT}`));
