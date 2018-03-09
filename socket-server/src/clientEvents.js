@@ -9,6 +9,19 @@ import {
   serverMessage,
 } from './serverEvents';
 
+
+
+
+const testHelper = (text, ...expectedValAndVariables) => {
+	return `const assertEquals = function(callback, expected, ...args) {
+	if (callback(...args) === expected) {
+		return 'it works';
+	} else {
+		return 'it doesnt work';
+	}
+};
+assertEquals(${text}, ${expectedValAndVariables})`;
+};
 /**
  *
  *  Client emissions (server listeners)
@@ -43,12 +56,17 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  // console.log({io, room}, payload, "in CLIENT RUN")
-  const { text, email, test } = payload;
+  console.log({io, room}, payload.test, "in CLIENT RUN")
+
+
+  const test = testHelper(payload.text, '1,3,2');
+  const { text, email} = payload;
+
   const url = process.env.CODERUNNER_SERVICE_URL;
-  console.log('this is the client run payload:', payload)
+  console.log('<HERE>Is <MY>TEST</MY></HERE>', test)
 
   try {
+<<<<<<< HEAD
     const { data } = await axios.post(`${url}/submit-code`, { code: text});
     let stdout = data;
     const testdata= await axios.post(`${url}/submit-test`, {test: test});
@@ -66,6 +84,16 @@ const clientRun = async ({ io, room }, payload) => {
     }
     serverRun({ io, room }, { stdout, email });
     
+=======
+    const { data } = await axios.post(`${url}/submit-code`, { code: text, test: test});
+    const stdout = data;
+    const testData = await axios.post(`${url}/submit-test`, {test: test});
+    console.log(testData, 'this is the test data')
+
+
+    serverRun({ io, room }, { stdout, email });
+
+>>>>>>> still working dat thang
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -76,12 +104,17 @@ const clientMessage = async ({ io, room }, payload) => {
   success('client message heard');
   const url = process.env.REST_SERVER_URL;
   try {
+<<<<<<< HEAD
 
     //changed this URL *****
     // const { data } = await axios.post(`${url}/messages/`, payload);
 
     const { data } = await axios.post(`http://localhost:3396/api/messages`, payload);
       // console.log({io, room}, data, "in CLIENT Message")
+=======
+    const { data } = await axios.post(`${url}/messages/`, payload);
+
+>>>>>>> still working dat thang
     serverMessage({ io, room }, data);
   } catch (e) {
     success('error saving message to the database. e = ', e);
