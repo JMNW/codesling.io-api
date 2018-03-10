@@ -9,19 +9,6 @@ import {
   serverMessage,
 } from './serverEvents';
 
-
-
-
-const testHelper = (text, ...expectedValAndVariables) => {
-	return `const assertEquals = function(callback, expected, ...args) {
-	if (callback(...args) === expected) {
-		return 'it works';
-	} else {
-		return 'it doesnt work';
-	}
-};
-assertEquals(${text}, ${expectedValAndVariables})`;
-};
 /**
  *
  *  Client emissions (server listeners)
@@ -56,17 +43,16 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  console.log({io, room}, payload.test, "in CLIENT RUN")
-
-
-  const test = testHelper(payload.text, '1,3,2');
-  const { text, email} = payload;
-
+  // console.log({io, room}, payload, "in CLIENT RUN")
+  const { text, email, test } = payload;
   const url = process.env.CODERUNNER_SERVICE_URL;
-  console.log('<HERE>Is <MY>TEST</MY></HERE>', test)
+  console.log('this is the client run payload:', payload)
 
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> pre rebase
     const { data } = await axios.post(`${url}/submit-code`, { code: text});
     let stdout = data;
     const testdata= await axios.post(`${url}/submit-test`, {test: test});
@@ -80,6 +66,7 @@ const clientRun = async ({ io, room }, payload) => {
       stdout = 'success'
     } else{
       stdout = 'fail'
+<<<<<<< HEAD
 
     }
     serverRun({ io, room }, { stdout, email });
@@ -93,11 +80,17 @@ const clientRun = async ({ io, room }, payload) => {
     const testData = await axios.post(`${url}/submit-test`, {test: test});
     console.log(testData, 'this is the test data')
 
+=======
+>>>>>>> pre rebase
 
+    }
     serverRun({ io, room }, { stdout, email });
 
+<<<<<<< HEAD
 >>>>>>> still working dat thang
 >>>>>>> still working dat thang
+=======
+>>>>>>> pre rebase
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -109,16 +102,22 @@ const clientMessage = async ({ io, room }, payload) => {
   const url = process.env.REST_SERVER_URL;
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> pre rebase
 
     //changed this URL *****
     // const { data } = await axios.post(`${url}/messages/`, payload);
 
     const { data } = await axios.post(`http://localhost:3396/api/messages`, payload);
       // console.log({io, room}, data, "in CLIENT Message")
+<<<<<<< HEAD
 =======
     const { data } = await axios.post(`${url}/messages/`, payload);
 
 >>>>>>> still working dat thang
+=======
+>>>>>>> pre rebase
     serverMessage({ io, room }, data);
   } catch (e) {
     success('error saving message to the database. e = ', e);
