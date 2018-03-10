@@ -5,19 +5,6 @@
  */
 
 
- const testHelper = (text, ...expectedValAndVariables) => {
-	return `const assertEquals = function(callback, expected, ...args) {
-	if (callback(...args) === expected) {
-		console.log('YAY, we' + expected + ' and got' + callback(...args)  );
-		return true;
-	} else {
-		console.log('Boo, we expected' + expected 'and got ' + callback(...args));
-		return false;
-	}
-};
-assertEquals(${text}, ${expectedValAndVariables})`;
-};
-
 
 export const serverInitialState = ({ client, room }, payload) => {
   if (!room.get('challenge')) {

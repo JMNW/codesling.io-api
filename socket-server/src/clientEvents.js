@@ -82,9 +82,7 @@ const clientRun = async ({ io, room }, payload) => {
 
     }
     serverRun({ io, room }, { stdout, email });
-<<<<<<< HEAD
 
->>>>>>> still working dat thang
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
