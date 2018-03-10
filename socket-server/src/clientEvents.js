@@ -11,17 +11,8 @@ import {
 
 
 
-
-const testHelper = (text, ...expectedValAndVariables) => {
-	return `const assertEquals = function(callback, expected, ...args) {
-	if (callback(...args) === expected) {
-		return 'it works';
-	} else {
-		return 'it doesnt work';
-	}
-};
-assertEquals(${text}, ${expectedValAndVariables})`;
-};
+//
+//
 /**
  *
  *  Client emissions (server listeners)
@@ -56,34 +47,23 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  console.log({io, room}, payload.test, "in CLIENT RUN")
+  // console.log({io, room}, payload.test, "in CLIENT RUN")
 
 
-  const test = testHelper(payload.text, '1,3,2');
-  const { text, email} = payload;
+
+  const { text, email, test} = payload;
+
+  console.log(payload, 'here is the payload')
 
   const url = process.env.CODERUNNER_SERVICE_URL;
-  console.log('<HERE>Is <MY>TEST</MY></HERE>', test)
 
   try {
-    const { data } = await axios.post(`${url}/submit-code`, { code: text});
-    let stdout = data;
-    const testdata= await axios.post(`${url}/submit-test`, {test: test});
-    const testout = testdata.data
 
+      
+    const { data } = await axios.post(`${url}/submit-code`, { code:text+test});
+    const stdout = data;
     console.log('this is stdout', stdout)
-    console.log('this is testout',testout)
-
-    if(stdout === testout){
-
-      stdout = 'success'
-    } else{
-      stdout = 'fail'
-
-    }
     serverRun({ io, room }, { stdout, email });
-
-
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
   }

@@ -10,7 +10,7 @@ const database = process.env.NODE_ENV === 'production' ? process.env.AWS_DATABAS
 
 /**
  * SQL statements for syncing and dropping tables
- * 
+ *
  * Database
  * Users
  * Challenges
@@ -68,7 +68,7 @@ export const createUserTable = async () => {
       password VARCHAR(255) NOT NULL,
       clout INT,
       kdr INT,
-      CONSTRAINT users_pk 
+      CONSTRAINT users_pk
         PRIMARY KEY(id)
       )
       `
@@ -103,7 +103,7 @@ export const createChallengeTable = async () => {
         content VARCHAR(255) NOT NULL,
         difficulty INT NOT NULL,
         rating INT,
-        CONSTRAINT challenges_pk 
+        CONSTRAINT challenges_pk
           PRIMARY KEY(id)
       )
       `
@@ -177,15 +177,15 @@ export const createHistoryTable = async () => {
         user_id INT NOT NULL,
         challenger_id INT NOT NULL,
         challenge_id INT NOT NULL,
-        CONSTRAINT histories_pk 
+        CONSTRAINT histories_pk
           PRIMARY KEY(id),
-        CONSTRAINT fk_histories_user_id 
+        CONSTRAINT fk_histories_user_id
           FOREIGN KEY(user_id) REFERENCES users(id)
           ON DELETE CASCADE,
-        CONSTRAINT fk_histories_challenger_id 
+        CONSTRAINT fk_histories_challenger_id
           FOREIGN KEY(challenger_id) REFERENCES users(id)
           ON DELETE CASCADE,
-        CONSTRAINT fk_histories_challenge_id 
+        CONSTRAINT fk_histories_challenge_id
           FOREIGN KEY(challenge_id) REFERENCES challenges(id)
           ON DELETE CASCADE
       )
@@ -217,11 +217,11 @@ export const createTestCaseTable = async () => {
       CREATE TABLE IF NOT EXISTS testCases
       (
         id SERIAL,
-        content VARCHAR(255) NOT NULL,
+        content VARCHAR(2000) NOT NULL,
         challenge_id INT NOT NULL,
         CONSTRAINT testCases_pk
           PRIMARY KEY(id),
-        CONSTRAINT fk_testCases_challenge_id 
+        CONSTRAINT fk_testCases_challenge_id
           FOREIGN KEY(challenge_id) REFERENCES challenges(id)
           ON DELETE CASCADE
       )
