@@ -66,13 +66,6 @@ const clientRun = async ({ io, room }, payload) => {
   console.log('<HERE>Is <MY>TEST</MY></HERE>', test)
 
   try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pre rebase
-=======
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
     const { data } = await axios.post(`${url}/submit-code`, { code: text});
     let stdout = data;
     const testdata= await axios.post(`${url}/submit-test`, {test: test});
@@ -86,45 +79,12 @@ const clientRun = async ({ io, room }, payload) => {
       stdout = 'success'
     } else{
       stdout = 'fail'
-<<<<<<< HEAD
 
     }
     serverRun({ io, room }, { stdout, email });
 <<<<<<< HEAD
 
-=======
-    
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 092cb3df7df0aad6405295e8a1321b90b2efbf03
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
-    const { data } = await axios.post(`${url}/submit-code`, { code: text, test: test});
-    const stdout = data;
-    const testData = await axios.post(`${url}/submit-test`, {test: test});
-    console.log(testData, 'this is the test data')
-
-<<<<<<< HEAD
-=======
->>>>>>> pre rebase
-
-    }
-=======
-
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
-    serverRun({ io, room }, { stdout, email });
-
-<<<<<<< HEAD
 >>>>>>> still working dat thang
-<<<<<<< HEAD
->>>>>>> still working dat thang
-=======
->>>>>>> pre rebase
-=======
-=======
->>>>>>> 092cb3df7df0aad6405295e8a1321b90b2efbf03
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -135,35 +95,12 @@ const clientMessage = async ({ io, room }, payload) => {
   success('client message heard');
   const url = process.env.REST_SERVER_URL;
   try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pre rebase
-=======
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
 
     //changed this URL *****
     // const { data } = await axios.post(`${url}/messages/`, payload);
 
     const { data } = await axios.post(`http://localhost:3396/api/messages`, payload);
       // console.log({io, room}, data, "in CLIENT Message")
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
-=======
-    const { data } = await axios.post(`${url}/messages/`, payload);
-
->>>>>>> still working dat thang
-=======
-<<<<<<< HEAD
->>>>>>> pre rebase
-=======
-    const { data } = await axios.post(`${url}/messages/`, payload);
-
->>>>>>> 092cb3df7df0aad6405295e8a1321b90b2efbf03
->>>>>>> 0fc1ddfcc4384e10559d13acb0cadec999246bfd
     serverMessage({ io, room }, data);
   } catch (e) {
     success('error saving message to the database. e = ', e);
