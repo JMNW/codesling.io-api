@@ -66,6 +66,7 @@ const clientRun = async ({ io, room }, payload) => {
   console.log('<HERE>Is <MY>TEST</MY></HERE>', test)
 
   try {
+<<<<<<< HEAD
     const { data } = await axios.post(`${url}/submit-code`, { code: text});
     let stdout = data;
     const testdata= await axios.post(`${url}/submit-test`, {test: test});
@@ -82,7 +83,21 @@ const clientRun = async ({ io, room }, payload) => {
 
     }
     serverRun({ io, room }, { stdout, email });
+<<<<<<< HEAD
 
+=======
+    
+=======
+    const { data } = await axios.post(`${url}/submit-code`, { code: text, test: test});
+    const stdout = data;
+    const testData = await axios.post(`${url}/submit-test`, {test: test});
+    console.log(testData, 'this is the test data')
+
+
+    serverRun({ io, room }, { stdout, email });
+
+>>>>>>> still working dat thang
+>>>>>>> still working dat thang
 
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -93,12 +108,17 @@ const clientMessage = async ({ io, room }, payload) => {
   success('client message heard');
   const url = process.env.REST_SERVER_URL;
   try {
+<<<<<<< HEAD
 
     //changed this URL *****
     // const { data } = await axios.post(`${url}/messages/`, payload);
 
     const { data } = await axios.post(`http://localhost:3396/api/messages`, payload);
       // console.log({io, room}, data, "in CLIENT Message")
+=======
+    const { data } = await axios.post(`${url}/messages/`, payload);
+
+>>>>>>> still working dat thang
     serverMessage({ io, room }, data);
   } catch (e) {
     success('error saving message to the database. e = ', e);
